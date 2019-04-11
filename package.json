@@ -1,0 +1,26 @@
+{
+  "name": "amazon-advertising-api",
+  "version": "1.0.0",
+  "description": "This class helps you interfacing the Amazon Advertising API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humanstupidity/amazon-advertising-api.git"
+  },
+  "keywords": [
+    "amazon",
+    "api",
+    "advertising",
+    "nodejs",
+    "amz"
+  ],
+  "author": "Daniel Haftmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/humanstupidity/amazon-advertising-api/issues"
+  },
+  "homepage": "https://github.com/humanstupidity/amazon-advertising-api#readme"
+}
