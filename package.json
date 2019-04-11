@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/humanstupidity/amazon-advertising-api/issues"
   },
-  "homepage": "https://github.com/humanstupidity/amazon-advertising-api#readme"
+  "homepage": "https://github.com/humanstupidity/amazon-advertising-api#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
 }
