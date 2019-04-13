@@ -174,16 +174,16 @@ await client.getProfile("1234567890");
 
 ```Node
 await client.updateProfiles(
-   {
-        {
-           "profileId" => client.profileId,
-           "dailyBudget" => 3.99
-        },
-        {
-           "profileId" => 11223344,
-           "dailyBudget" => 6.00)
-        }
+  [
+    {
+      "profileId": client.profileId,
+      "dailyBudget": 3.99
+    },
+    {
+      "profileId": 11223344,
+      "dailyBudget": 6.00
     }
+  ]
 );
 
 ```
@@ -259,24 +259,24 @@ await client.getCampaign(1234567890);
 
 ```Node
 await client.createCampaigns(
+  [
     {
-        {
-            "name": "My Campaign One",
-            "campaignType": "sponsoredProducts",
-            "targetingType": "manual",
-            "state": "enabled",
-            "dailyBudget": 5.00,
-            "startDate": date("Ymd")
-        },
-        {
-            "name": "My Campaign Two",
-            "campaignType": "sponsoredProducts",
-            "targetingType": "manual",
-            "state": "enabled",
-            "dailyBudget": 15.00,
-            "startDate": date("Ymd")
-        }
+      "name": "My Campaign One",
+      "campaignType": "sponsoredProducts",
+      "targetingType": "manual",
+      "state": "enabled",
+      "dailyBudget": 5.00,
+      "startDate": date("Ymd")
+    },
+    {
+      "name": "My Campaign Two",
+      "campaignType": "sponsoredProducts",
+      "targetingType": "manual",
+      "state": "enabled",
+      "dailyBudget": 15.00,
+      "startDate": date("Ymd")
     }
+  ]
 );
 ```
 >
@@ -299,20 +299,20 @@ await client.createCampaigns(
 
 ```Node
 await client.updateCampaigns(
+  [
     {
-        {
-            "campaignId" => 173284463890123,
-            "name" => "Update Campaign One",
-            "state" => "enabled",
-            "dailyBudget" => 10.99)
-        },
-        {
-            "campaignId" => 27074907785456,
-            "name" => "Update Campaign Two",
-            "state" => "enabled",
-            "dailyBudget" => 99.99
-        }
+      "campaignId": 173284463890123,
+      "name": "Update Campaign One",
+      "state": "enabled",
+      "dailyBudget": 10.99
+    },
+    {
+      "campaignId": 27074907785456,
+      "name": "Update Campaign Two",
+      "state": "enabled",
+      "dailyBudget": 99.99
     }
+  ]
 );
 ```
 >
@@ -395,20 +395,20 @@ await client.getAdGroup(262960563101486);
 
 ```Node
 await client.createAdGroups(
+  [       
     {
-        {
-            "campaignId": 250040549047739,
-            "name": "New AdGroup One",
-            "state": "enabled",
-            "defaultBid": 2.0
-        },
-        {
-            "campaignId": 59836775211065,
-            "name": "New AdGroup Two",
-            "state": "enabled",
-            "defaultBid": 5.0
-        }
+      "campaignId": 250040549047739,
+      "name": "New AdGroup One",
+      "state": "enabled",
+      "defaultBid": 2.0
+    },
+    {
+      "campaignId": 59836775211065,
+      "name": "New AdGroup Two",
+      "state": "enabled",
+      "defaultBid": 5.0
     }
+  ]
 );
 ```
 >
@@ -431,18 +431,18 @@ await client.createAdGroups(
 
 ```Node
 await client.updateAdGroups(
+  [
     {
-        {
-            "adGroupId": 117483076163518,
-            "state": "enabled",
-            "defaultBid": 20.0
-        },
-        {
-            "adGroupId": 123431426718271,
-            "state": "enabled",
-            "defaultBid": 15.0
-        }
+      "adGroupId": 117483076163518,
+      "state": "enabled",
+      "defaultBid": 20.0
+    },
+    {
+      "adGroupId": 123431426718271,
+      "state": "enabled",
+      "defaultBid": 15.0
     }
+  ]
 );
 ```
 >
@@ -479,7 +479,7 @@ await client.archiveAdGroup(117483076163518);
 > Retrieves a list of keywords satisfying optional criteria.
 
 ```Node
-await client.listBiddableKeywords({"stateFilter": "enabled"));
+await client.listBiddableKeywords({"stateFilter": "enabled"});
 ```
 >
 ```
@@ -508,7 +508,7 @@ await client.listBiddableKeywords({"stateFilter": "enabled"));
 > Retrieves a keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than  getBiddableKeywordEx.
 
 ```Node
-client.getBiddableKeyword(174140697976855);
+await client.getBiddableKeyword(174140697976855);
 ```
 >
 ```
@@ -527,20 +527,24 @@ client.getBiddableKeyword(174140697976855);
 > Creates one or more keywords. Successfully created keywords will be assigned unique `keywordId`s.
 
 ```Node
-client.createBiddableKeywords(
+await client.createBiddableKeywords(
+  [
     {
-        {
-            "campaignId" => 250040549047739,
-            "adGroupId" => 52169162825843,
-            "keywordText" => "AnotherKeyword",
-            "matchType" => "exact",
-            "state" => "enabled"),
-        {
-            "campaignId" => 250040549047739,
-            "adGroupId" => 52169162825843,
-            "keywordText" => "YetAnotherKeyword",
-            "matchType" => "exact",
-            "state" => "enabled")));
+      "campaignId": 250040549047739,
+      "adGroupId": 52169162825843,
+      "keywordText": "AnotherKeyword",
+      "matchType": "exact",
+      "state": "enabled"
+    },
+    {
+      "campaignId": 250040549047739,
+      "adGroupId": 52169162825843,
+      "keywordText": "YetAnotherKeyword",
+      "matchType": "exact",
+      "state": "enabled"
+    }
+  ]
+);
 ```
 >
 ```
@@ -561,16 +565,20 @@ client.createBiddableKeywords(
 > Updates one or more keywords. Keywords are identified using their `keywordId`s.
 
 ```Node
-client.updateBiddableKeywords(
-       {
-           {
-               "keywordId" => 112210768353976,
-               "bid" => 100.0,
-               "state" => "archived"),
-           {
-               "keywordId" => 249490346605943,
-               "bid" => 50.0,
-               "state" => "archived")));
+await client.updateBiddableKeywords(
+  [
+    {
+      "keywordId": 112210768353976,
+      "bid": 100.0,
+      "state": "archived"
+    },
+    {
+      "keywordId": 249490346605943,
+      "bid": 50.0,
+      "state": "archived"
+    }
+  ]
+);
 ```
 >
 ```
@@ -591,7 +599,7 @@ client.updateBiddableKeywords(
 > Sets the keyword status to archived. This same operation can be performed via an update, but is included for completeness.
 
 ```Node
-client.archiveBiddableKeyword(112210768353976);
+await client.archiveBiddableKeyword(112210768353976);
 ```
 >
 ```
@@ -606,7 +614,7 @@ client.archiveBiddableKeyword(112210768353976);
 > Retrieves a list of negative keywords satisfying optional criteria.
 
 ```Node
-client.listNegativeKeywords({"stateFilter" => "enabled"));
+await client.listNegativeKeywords({"stateFilter": "enabled"});
 ```
 >
 ```
@@ -635,7 +643,7 @@ client.listNegativeKeywords({"stateFilter" => "enabled"));
 > Retrieves a negative keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than `getNegativeKeywordEx`.
 
 ```Node
-client.getNegativeKeyword(281218602770639);
+await client.getNegativeKeyword(281218602770639);
 ```
 >
 ```
@@ -654,20 +662,24 @@ client.getNegativeKeyword(281218602770639);
 > Creates one or more negative keywords. Successfully created keywords will be assigned unique keywordIds.
 
 ```Node
-client.createNegativeKeywords(
+await client.createNegativeKeywords(
+  [
     {
-        {
-            "campaignId" => 250040549047739,
-            "adGroupId" => 52169162825843,
-            "keywordText" => "AnotherKeyword",
-            "matchType" => "negativeExact",
-            "state" => "enabled"),
-        {
-            "campaignId" => 181483024866689,
-            "adGroupId" => 262960563101486,
-            "keywordText" => "YetAnotherKeyword",
-            "matchType" => "negativeExact",
-            "state" => "enabled")));
+      "campaignId": 250040549047739,
+      "adGroupId": 52169162825843,
+      "keywordText": "AnotherKeyword",
+      "matchType": "negativeExact",
+      "state": "enabled"
+    },
+    {
+      "campaignId": 181483024866689,
+      "adGroupId": 262960563101486,
+      "keywordText": "YetAnotherKeyword",
+      "matchType": "negativeExact",
+      "state": "enabled"
+    }
+  ]
+);
 ```
 >
 ```
@@ -688,16 +700,20 @@ client.createNegativeKeywords(
 > Updates one or more negative keywords. Keywords are identified using their `keywordId`s.
 
 ```Node
-client.updateNegativeKeywords(
-       {
-           {
-               "keywordId" => 61857817062026,
-               "state" => "enabled",
-               "bid" => 15.0),
-           {
-               "keywordId" => 61857817062026,
-               "state" => "enabled",
-               "bid" => 20.0)));
+await client.updateNegativeKeywords(
+  [
+    {
+      "keywordId": 61857817062026,
+      "state": "enabled",
+      "bid": 15.0
+    },
+    {
+      "keywordId": 61857817062026,
+      "state": "enabled",
+      "bid": 20.0
+    }
+  ]
+);
 ```
 >
 ```
@@ -718,7 +734,7 @@ client.updateNegativeKeywords(
 > Sets the negative keyword status to archived. This same operation can be performed via an update to the status, but is included for completeness.
 
 ```Node
-client.archiveNegativeKeyword(61857817062026);
+await client.archiveNegativeKeyword(61857817062026);
 ```
 >
 ```
@@ -733,7 +749,7 @@ client.archiveNegativeKeyword(61857817062026);
 > Retrieves a list of negative campaign keywords satisfying optional criteria.
 
 ```Node
-client.listCampaignNegativeKeywords({"matchTypeFilter" => "negativeExact"));
+await client.listCampaignNegativeKeywords({"matchTypeFilter": "negativeExact"});
 ```
 >
 ```
@@ -762,7 +778,7 @@ client.listCampaignNegativeKeywords({"matchTypeFilter" => "negativeExact"));
 > Retrieves a campaign negative keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than `getCampaignNegativeKeywordEx`.
 
 ```Node
-client.getCampaignNegativeKeyword(197201372210821);
+await client.getCampaignNegativeKeyword(197201372210821);
 ```
 >
 ```
@@ -781,18 +797,22 @@ client.getCampaignNegativeKeyword(197201372210821);
 > Creates one or more campaign negative keywords. Successfully created keywords will be assigned unique `keywordId`s.
 
 ```Node
-client.createCampaignNegativeKeywords(
-       {
-           {
-               "campaignId" => 181483024866689,
-               "keywordText" => "Negative Keyword One",
-               "matchType" => "negativeExact",
-               "state" => "enabled"),
-           {
-               "campaignId" => 181483024866689,
-               "keywordText" => "Negative Keyword Two",
-               "matchType" => "negativeExact",
-               "state" => "enabled")));
+await client.createCampaignNegativeKeywords(
+  [
+    {
+      "campaignId": 181483024866689,
+      "keywordText": "Negative Keyword One",
+      "matchType": "negativeExact",
+      "state": "enabled"
+    },
+    {
+      "campaignId": 181483024866689,
+      "keywordText": "Negative Keyword Two",
+      "matchType": "negativeExact",
+      "state": "enabled"
+    }
+  ]
+);
 ```
 >
 ```
@@ -819,7 +839,7 @@ client.createCampaignNegativeKeywords(
 > Sets the campaign negative keyword status to deleted. This same operation can be performed via an update to the status, but is included for completeness.
 
 ```Node
-client.removeCampaignNegativeKeyword(186203479904657);
+await client.removeCampaignNegativeKeyword(186203479904657);
 ```
 >
 ```
@@ -834,7 +854,7 @@ client.removeCampaignNegativeKeyword(186203479904657);
 > Retrieves a list of product ads satisfying optional criteria.
 
 ```Node
-client.listProductAds({"stateFilter" => "enabled"));
+await client.listProductAds({"stateFilter": "enabled"});
 ```
 >
 ```
@@ -854,7 +874,7 @@ client.listProductAds({"stateFilter" => "enabled"));
 > Retrieves a product ad by Id. Note that this call returns the minimal set of product ad fields, but is more efficient than `getProductAdEx`.
 
 ```Node
-client.getProductAd(247309761200483);
+await client.getProductAd(247309761200483);
 ```
 >
 ```
@@ -872,18 +892,22 @@ client.getProductAd(247309761200483);
 > Creates one or more product ads. Successfully created product ads will be assigned unique `adId`s.
 
 ```Node
-client.createProductAds(
+await client.createProductAds(
+  [
     {
-        {
-            "campaignId" => 181483024866689,
-            "adGroupId" => 262960563101486,
-            "sku" => "TEST002",
-            "state" => "enabled"),
-        {
-            "campaignId" => 181483024866689,
-            "adGroupId" => 262960563101486,
-            "sku" => "TEST003",
-            "state" => "enabled")));
+      "campaignId": 181483024866689,
+      "adGroupId": 262960563101486,
+      "sku": "TEST002",
+      "state": "enabled"
+    },
+    {
+      "campaignId": 181483024866689,
+      "adGroupId": 262960563101486,
+      "sku": "TEST003",
+      "state": "enabled"
+    }
+  ]
+);
 ```
 >
 ```
@@ -904,14 +928,18 @@ client.createProductAds(
 > Updates one or more product ads. Product ads are identified using their `adId`s.
 
 ```Node
-client.updateProductAds(
+await client.updateProductAds(
+  [
     {
-        {
-            "adId" => 239870616623537,
-            "state" => "archived"),
-        {
-            "adId" => 191456410590622,
-            "state" => "archived")));
+      "adId": 239870616623537,
+      "state": "archived"
+    },
+    {
+      "adId": 191456410590622,
+      "state": "archived"
+    }
+  ]
+);
 ```
 >
 ```
@@ -932,7 +960,7 @@ client.updateProductAds(
 > Sets the product ad status to archived. This same operation can be performed via an update, but is included for completeness.
 
 ```Node
-client.archiveProductAd(239870616623537);
+await client.archiveProductAd(239870616623537);
 ```
 >
 ```
@@ -947,10 +975,13 @@ client.archiveProductAd(239870616623537);
 > Request a snapshot report for all entities of a single type.
 
 ```Node
-client.requestSnapshot(
-    "campaigns",
-    {"stateFilter" => "enabled,paused,archived",
-          "campaignType" => "sponsoredProducts"));
+await client.requestSnapshot(
+  "campaigns",
+  {
+    "stateFilter": "enabled,paused,archived",
+    "campaignType": "sponsoredProducts"
+  }
+);
 ```
 >
 ```
@@ -966,7 +997,7 @@ client.requestSnapshot(
 > Retrieve a previously requested report.
 
 ```Node
-client.getSnapshot("amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c87ef5df");
+await client.getSnapshot("amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c87ef5df");
 ```
 >
 ```
@@ -1006,11 +1037,14 @@ client.getSnapshot("amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c
 > Request a customized performance report for all entities of a single type which have performance data to report.
 
 ```Node
-client.requestReport(
-    "campaigns",
-    {"reportDate" => "20160515",
-          "campaignType" => "sponsoredProducts",
-          "metrics" => "impressions,clicks,cost"));
+await client.requestReport(
+  "campaigns",
+  {
+    "reportDate": "20160515",
+    "campaignType": "sponsoredProducts",
+    "metrics": "impressions,clicks,cost"
+  }
+);
 ```
 >
 ```
@@ -1027,7 +1061,7 @@ client.requestReport(
 > Retrieve a previously requested report.
 
 ```Node
-client.getReport("amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4ae1d43");
+await client.getReport("amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4ae1d43");
 ```
 > Sandbox will return dummy data.
 ```
@@ -1064,7 +1098,7 @@ client.getReport("amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4a
 > Request bid recommendations for specified ad group.
 
 ```Node
-client.getAdGroupBidRecommendations(1234509876);
+await client.getAdGroupBidRecommendations(1234509876);
 ```
 >
 ```
@@ -1083,7 +1117,7 @@ client.getAdGroupBidRecommendations(1234509876);
 > Request bid recommendations for specified keyword.
 
 ```Node
-client.getKeywordBidRecommendations(85243141758914);
+await client.getKeywordBidRecommendations(85243141758914);
 ```
 >
 ```
@@ -1103,14 +1137,19 @@ client.getKeywordBidRecommendations(85243141758914);
 > Request bid recommendations for a list of up to 100 keywords.
 
 ```Node
-client.bulkGetKeywordBidRecommendations(
-    242783265349805,
+await client.bulkGetKeywordBidRecommendations(
+  242783265349805,
+  [
     {
-        {"keyword" => "testKeywordOne",
-              "matchType" => "exact"),
-        {"keyword" => "testKeywordTwo",
-              "matchType" => "exact")
-    ));
+      "keyword": "testKeywordOne",
+      "matchType": "exact"
+    },
+    {
+      "keyword": "testKeywordTwo",
+      "matchType": "exact"
+    }
+  ]
+);
 ```
 >
 ```
@@ -1146,10 +1185,13 @@ client.bulkGetKeywordBidRecommendations(
 > Request keyword suggestions for specified ad group.
 
 ```Node
-client.getAdGroupKeywordSuggestions(
-    {"adGroupId" => 1234567890,
-          "maxNumSuggestions" => 2,
-          "adStateFilter" => "enabled"));
+await client.getAdGroupKeywordSuggestions(
+  {
+    "adGroupId": 1234567890,
+    "maxNumSuggestions": 2,
+    "adStateFilter": "enabled"
+  }
+);
 ```
 >
 ```
@@ -1173,11 +1215,14 @@ client.getAdGroupKeywordSuggestions(
 > Request keyword suggestions for specified ad group, extended version. Adds the ability to return bid recommendation for returned keywords.
 
 ```Node
-client.getAdGroupKeywordSuggestionsEx(
-    {"adGroupId" => 1234567890,
-          "maxNumSuggestions" => 2,
-          "suggestBids" => "yes",
-          "adStateFilter" => "enabled"));
+await client.getAdGroupKeywordSuggestionsEx(
+  {
+    "adGroupId": 1234567890,
+    "maxNumSuggestions": 2,
+    "suggestBids": "yes",
+    "adStateFilter": "enabled"
+  }
+);
 ```
 >
 ```
@@ -1206,9 +1251,12 @@ client.getAdGroupKeywordSuggestionsEx(
 > Request keyword suggestions for specified asin.
 
 ```Node
-client.getAsinKeywordSuggestions(
-    {"asin" => "B00IJSNPM0",
-          "maxNumSuggestions" => 2));
+await client.getAsinKeywordSuggestions(
+  {
+    "asin": "B00IJSNPM0",
+    "maxNumSuggestions": 2
+  }
+);
 ```
 >
 ```
@@ -1229,11 +1277,15 @@ client.getAsinKeywordSuggestions(
 > Request keyword suggestions for a list of asin.
 
 ```Node
-client.bulkGetAsinKeywordSuggestions(
-    {"asins" => {
-              "B00IJSNPM0",
-              "B00IJSO1NM"),
-          "maxNumSuggestions" => 2));
+await client.bulkGetAsinKeywordSuggestions(
+  {
+    "asins": {
+      "B00IJSNPM0",
+      "B00IJSO1NM"
+    },    
+    "maxNumSuggestions": 2
+  }
+);
 ```
 >
 ```
