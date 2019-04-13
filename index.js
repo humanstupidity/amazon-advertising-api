@@ -1,15 +1,15 @@
 /**
  * Module dependencies.
  */
-var Strategy = require('./strategy');
+var AdvertisingClient = require('./AdvertisingClient');
 
 
 /**
  * Expose `Strategy` directly from package.
  */
-exports = module.exports = Strategy;
+exports = module.exports = AdvertisingClient;
 
 /**
  * Expose constructors.
  */
-exports.Strategy = Strategy;
+exports.Class = AdvertisingClient;

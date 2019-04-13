@@ -29,8 +29,6 @@ const Regions = {
 
 module.exports = class AdvertisingClient {
 
-    tokenUrl;
-
     constructor(options) {
 
         this.options = options
