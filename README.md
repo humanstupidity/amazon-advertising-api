@@ -37,7 +37,7 @@ client.registerProfile({"countryCode": "IT"});
 
 ```Javascript
 
-let AdvertisingClient = require('./Advertising API/AdvertisingClient');
+let AdvertisingClient = require('AdvertisingClient');
 
 let config = {
     clientId: "CLIENT_ID",
