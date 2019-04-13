@@ -19,11 +19,11 @@ The following country codes are available for testing.
 <br/>
 > US, CA, UK, DE, FR, ES, IT, IN, CN, JP<br/>
 
-```Node
+```Javascript
 client.registerProfile({"countryCode": "IT"});
 ```
 >
-```
+```JSON
 {
   "registerProfileId": "5cf1aca5-4ab8-4489-8c33-013d1f85c586JP",
   "status": "IN_PROGRESS",
@@ -35,7 +35,7 @@ client.registerProfile({"countryCode": "IT"});
 #### Instantiate the client
 > You can pass in `profileId` later. You can get all available profiles with `listProfiles`.
 
-```Node
+```Javascript
 
 let AdvertisingClient = require('./Advertising API/AdvertisingClient');
 
@@ -54,22 +54,22 @@ let client = new AdvertisingClient(config);
 #### Refresh access token
 > You can refresh your access token when it expires by using the following method. The new access token will be in the request response. This method will set it for you so it's mainly for reference if you need it.
 
-```Node
+```Javascript
 let refreshTokenObject = await client.refresh();
 ```
 >
-```
+```JSON
 [{
   "access_token": "Atza|IQEBLjAsAhRmHjNgHpi0U-Dme37rR6CuUpSR…",
   "expires_in": 3600
 }]
 ```
 #### Get a list of profiles
-```Node
+```Javascript
 let profiles = await client.listProfiles();
 ```
 >
-```
+```JSON
 [{
   "profileId":1234567890,
   "countryCode":"US",
@@ -83,7 +83,7 @@ let profiles = await client.listProfiles();
 ```
 
 #### Set profile Id
-```Node
+```Javascript
 client.options.profileId = "1234567890";
 ```
 
@@ -101,6 +101,10 @@ client.options.profileId = "1234567890";
     * [createCampaigns](#createcampaigns)
     * [updateCampaigns](#updatecampaigns)
     * [archiveCampaign](#archivecampaign)
+    * [listCampaigns Sponsored Brands](#listcampaignsBrand)
+    * [getCampaign Sponsored Brands](#getcampaignBrand)
+    * [updateCampaigns Sponsored Brands](#updatecampaignsBrand)
+    * [archiveCampaign Sponsored Brands](#archivecampaignBrand)
 * Ad Groups
     * [listAdGroups](#listadgroups)
     * [getAdGroup](#getadgroup)
@@ -113,6 +117,10 @@ client.options.profileId = "1234567890";
     * [createBiddableKeywords](#createbiddablekeywords)
     * [updateBiddableKeywords](#updatebiddablekeywords)
     * [archiveBiddableKeyword](#archivebiddablekeyword)
+    * [getBiddableKeyword Sponsored Brands](#getbiddablekeywordBrand)
+    * [createBiddableKeywords Sponsored Brands](#createbiddablekeywordsBrand)
+    * [updateBiddableKeywords Sponsored Brands](#updatebiddablekeywordsBrand)
+    * [archiveBiddableKeyword Sponsored Brands](#archivebiddablekeywordBrand)
 * Negative Keywords
     * [listNegativeKeywords](#listnegativekeywords)
     * [getNegativeKeyword](#getnegativekeyword)
@@ -134,9 +142,11 @@ client.options.profileId = "1234567890";
 * Snapshots
     * [requestSnapshot](#requestsnapshot)
     * [getSnapshot](#getsnapshot)
+    * [requestSnapshot Sponsored Brands](#requestsnapshotBrand)
 * Reports
     * [requestReport](#requestreport)
     * [getReport](#getreport)
+    * [requestReport Sponsored Brands](#requestreportBrand)
 * Bid Recommendations
     * [getAdGroupBidRecommendations](#getadgroupbidrecommendations)
     * [getKeywordBidRecommendations](#getkeywordbidrecommendations)
@@ -150,11 +160,11 @@ client.options.profileId = "1234567890";
 #### getProfile
 > Retrieves a single profile by Id.
 
-```Node
+```Javascript
 await client.getProfile("1234567890");
 ```
 >
-```
+```JSON
 {
   "profileId": 1234567890,
   "countryCode": "US",
@@ -172,7 +182,7 @@ await client.getProfile("1234567890");
 #### updateProfiles
 > Updates one or more profiles.  Advertisers are identified using their `profileIds`.
 
-```Node
+```Javascript
 await client.updateProfiles(
   [
     {
@@ -188,7 +198,7 @@ await client.updateProfiles(
 
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -206,11 +216,11 @@ await client.updateProfiles(
 #### listCampaigns
 > Retrieves a list of campaigns satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listCampaigns({"stateFilter": "enabled"});
 ```
 >
-```
+```JSON
 [
   {
     "campaignId": 59836775211065,
@@ -237,11 +247,11 @@ await client.listCampaigns({"stateFilter": "enabled"});
 #### getCampaign
 > Retrieves a campaign by Id. Note that this call returns the minimal set of campaign fields, but is more efficient than  `getCampaignEx`.
 
-```Node
+```Javascript
 await client.getCampaign(1234567890);
 ```
 >
-```
+```JSON
 {
   "campaignId": 1234567890,
   "name": "CampaignOne",
@@ -257,7 +267,7 @@ await client.getCampaign(1234567890);
 #### createCampaigns
 > Creates one or more campaigns. Successfully created campaigns will be assigned unique `campaignId`s.
 
-```Node
+```Javascript
 await client.createCampaigns(
   [
     {
@@ -280,7 +290,7 @@ await client.createCampaigns(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -297,7 +307,7 @@ await client.createCampaigns(
 #### updateCampaigns
 > Updates one or more campaigns. Campaigns are identified using their `campaignId`s.
 
-```Node
+```Javascript
 await client.updateCampaigns(
   [
     {
@@ -316,7 +326,7 @@ await client.updateCampaigns(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -333,11 +343,105 @@ await client.updateCampaigns(
 #### archiveCampaign
 > Sets the campaign status to archived. This same operation can be performed via an update, but is included for completeness.
 
-```Node
+```Javascript
 await client.archiveCampaign(1234567890);
 ```
 >
+```JSON
+{
+  "code": "SUCCESS",
+  "campaignId": 1234567890
+}
 ```
+---
+#### listCampaignsBrand
+> Retrieves a list of campaigns satisfying optional criteria. Used for Sponsored Brands.
+```Javascript
+await client.listCampaignsBrand({"stateFilter": "enabled"});
+```
+>
+```JSON
+[
+  {
+    "campaignId": 59836775211065,
+    "name": "CampaignOne",
+    "campaignType": "sponsoredProducts",
+    "targetingType": "manual",
+    "dailyBudget": 15.0,
+    "startDate": "20160330",
+    "state": "enabled"
+  },
+  {
+    "campaignId": 254238342004647,
+    "name": "CampaignTwo",
+    "campaignType": "sponsoredProducts",
+    "targetingType": "manual",
+    "dailyBudget": 5.0,
+    "startDate": "20160510",
+    "state": "enabled"
+  }
+]
+```
+---
+#### getCampaignBrand
+> Retrieves a campaign by Id. Used for Sponsored Brands.
+```Javascript
+await client.getCampaignBrand(1234567890);
+```
+>
+```JSON
+{
+  "campaignId": 1234567890,
+  "name": "CampaignOne",
+  "campaignType": "sponsoredProducts",
+  "targetingType": "manual",
+  "dailyBudget": 15.0,
+  "startDate": "20160330",
+  "state": "enabled"
+}
+```
+---
+#### updateCampaignsBrand
+> Updates one or more campaigns. Campaigns are identified using their `campaignId`s.  Used for Sponsored Brands.
+```Javascript
+await client.updateCampaignsBrand(
+  [
+    {
+      "campaignId": 173284463890123,
+      "name": "Update Campaign One",
+      "state": "enabled",
+      "dailyBudget": 10.99
+    },
+    {
+      "campaignId": 27074907785456,
+      "name": "Update Campaign Two",
+      "state": "enabled",
+      "dailyBudget": 99.99
+    }
+  ]
+);
+```
+>
+```JSON
+[
+  {
+    "code": "SUCCESS",
+    "campaignId": 173284463890123
+  },
+  {
+    "code": "SUCCESS",
+    "campaignId": 27074907785456
+  }
+]
+```
+---
+#### archiveCampaignBrand
+> Sets the campaign status to archived. This same operation can be performed via an update, but is included for completeness.  Used for Sponsored Brands.
+```Javascript
+await client.archiveCampaignBrand(1234567890);
+```
+>
+```JSON
 {
   "code": "SUCCESS",
   "campaignId": 1234567890
@@ -348,11 +452,11 @@ await client.archiveCampaign(1234567890);
 #### listAdGroups
 > Retrieves a list of ad groups satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listAdGroups({"stateFilter": "enabled"});
 ```
 >
-```
+```JSON
 [
   {
     "adGroupId": 262960563101486,
@@ -375,11 +479,11 @@ await client.listAdGroups({"stateFilter": "enabled"});
 #### getAdGroup
 > Retrieves an ad group by Id. Note that this call returns the minimal set of ad group fields, but is more efficient than `getAdGroupEx`.
 
-```Node
+```Javascript
 await client.getAdGroup(262960563101486);
 ```
 >
-```
+```JSON
 {
   "adGroupId": 262960563101486,
   "name": "AdGroup One",
@@ -393,7 +497,7 @@ await client.getAdGroup(262960563101486);
 #### createAdGroups
 > Creates one or more ad groups. Successfully created ad groups will be assigned unique `adGroupId`s.
 
-```Node
+```Javascript
 await client.createAdGroups(
   [       
     {
@@ -412,7 +516,7 @@ await client.createAdGroups(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -429,7 +533,7 @@ await client.createAdGroups(
 #### updateAdGroups
 > Updates one or more ad groups. Ad groups are identified using their `adGroupId`s.
 
-```Node
+```Javascript
 await client.updateAdGroups(
   [
     {
@@ -446,7 +550,7 @@ await client.updateAdGroups(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -463,11 +567,11 @@ await client.updateAdGroups(
 #### archiveAdGroup
 > Sets the ad group status to archived. This same operation can be performed via an update, but is included for completeness.
 
-```Node
+```Javascript
 await client.archiveAdGroup(117483076163518);
 ```
 >
-```
+```JSON
 {
   "code": "SUCCESS",
   "adGroupId": 117483076163518
@@ -478,11 +582,11 @@ await client.archiveAdGroup(117483076163518);
 #### listBiddableKeywords
 > Retrieves a list of keywords satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listBiddableKeywords({"stateFilter": "enabled"});
 ```
 >
-```
+```JSON
 [
   {
     "keywordId": 174140697976855,
@@ -507,11 +611,11 @@ await client.listBiddableKeywords({"stateFilter": "enabled"});
 #### getBiddableKeyword
 > Retrieves a keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than  getBiddableKeywordEx.
 
-```Node
+```Javascript
 await client.getBiddableKeyword(174140697976855);
 ```
 >
-```
+```JSON
 {
   "keywordId": 174140697976855,
   "adGroupId": 52169162825843,
@@ -526,7 +630,7 @@ await client.getBiddableKeyword(174140697976855);
 #### createBiddableKeywords
 > Creates one or more keywords. Successfully created keywords will be assigned unique `keywordId`s.
 
-```Node
+```Javascript
 await client.createBiddableKeywords(
   [
     {
@@ -547,7 +651,7 @@ await client.createBiddableKeywords(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -564,7 +668,7 @@ await client.createBiddableKeywords(
 #### updateBiddableKeywords
 > Updates one or more keywords. Keywords are identified using their `keywordId`s.
 
-```Node
+```Javascript
 await client.updateBiddableKeywords(
   [
     {
@@ -581,7 +685,7 @@ await client.updateBiddableKeywords(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -598,11 +702,110 @@ await client.updateBiddableKeywords(
 #### archiveBiddableKeyword
 > Sets the keyword status to archived. This same operation can be performed via an update, but is included for completeness.
 
-```Node
+```Javascript
 await client.archiveBiddableKeyword(112210768353976);
 ```
 >
+```JSON
+{
+  "code": "200",
+  "requestId": "0TR95PJD6Z16FFCZDXD0"
+}
 ```
+---
+#### getBiddableKeywordBrand
+> Retrieves a keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than  getBiddableKeywordEx.  Used for Sponsored Brands.
+```Javascript
+await client.getBiddableKeywordBrand(174140697976855);
+```
+>
+```JSON
+{
+  "keywordId": 174140697976855,
+  "adGroupId": 52169162825843,
+  "campaignId": 250040549047739,
+  "keywordText": "KeywordOne",
+  "matchType": "exact",
+  "state": "enabled"
+}
+```
+---
+#### createBiddableKeywordsBrand
+> Creates one or more keywords. Successfully created keywords will be assigned unique `keywordId`s.  Used for Sponsored Brands.
+```Javascript
+await client.createBiddableKeywordsBrand(
+  [
+    {
+      "campaignId": 250040549047739,
+      "adGroupId": 52169162825843,
+      "keywordText": "AnotherKeyword",
+      "matchType": "exact",
+      "state": "enabled"
+    },
+    {
+      "campaignId": 250040549047739,
+      "adGroupId": 52169162825843,
+      "keywordText": "YetAnotherKeyword",
+      "matchType": "exact",
+      "state": "enabled"
+    }
+  ]
+);
+```
+>
+```JSON
+[
+  {
+    "code": "SUCCESS",
+    "keywordId": 112210768353976
+  },
+  {
+    "code": "SUCCESS",
+    "keywordId": 249490346605943
+  }
+]
+```
+---
+#### updateBiddableKeywordsBrand
+> Updates one or more keywords. Keywords are identified using their `keywordId`s.  Used for Sponsored Brands.
+```Javascript
+await client.updateBiddableKeywordsBrand(
+  {
+    {
+      "keywordId": 112210768353976,
+      "bid": 100.0,
+      "state": "archived"
+    },
+    {
+      "keywordId": 249490346605943,
+      "bid": 50.0,
+      "state": "archived"
+    }
+  }
+);
+```
+>
+```JSON
+[
+  {
+    "code": "SUCCESS",
+    "keywordId": 112210768353976
+  },
+  {
+    "code": "SUCCESS",
+    "keywordId": 249490346605943
+  }
+]
+```
+---
+#### archiveBiddableKeywordBrand
+> Sets the keyword status to archived. This same operation can be performed via an update, but is included for completeness. Used for Sponsored Brands.
+
+```Javascript
+await client.archiveBiddableKeywordBrand(112210768353976);
+```
+>
+```JSON
 {
   "code": "200",
   "requestId": "0TR95PJD6Z16FFCZDXD0"
@@ -613,11 +816,11 @@ await client.archiveBiddableKeyword(112210768353976);
 #### listNegativeKeywords
 > Retrieves a list of negative keywords satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listNegativeKeywords({"stateFilter": "enabled"});
 ```
 >
-```
+```JSON
 [
   {
     "keywordId": 281218602770639,
@@ -642,11 +845,11 @@ await client.listNegativeKeywords({"stateFilter": "enabled"});
 #### getNegativeKeyword
 > Retrieves a negative keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than `getNegativeKeywordEx`.
 
-```Node
+```Javascript
 await client.getNegativeKeyword(281218602770639);
 ```
 >
-```
+```JSON
 {
   "keywordId": 281218602770639,
   "adGroupId": 52169162825843,
@@ -661,7 +864,7 @@ await client.getNegativeKeyword(281218602770639);
 #### createNegativeKeywords
 > Creates one or more negative keywords. Successfully created keywords will be assigned unique keywordIds.
 
-```Node
+```Javascript
 await client.createNegativeKeywords(
   [
     {
@@ -682,7 +885,7 @@ await client.createNegativeKeywords(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -699,7 +902,7 @@ await client.createNegativeKeywords(
 #### updateNegativeKeywords
 > Updates one or more negative keywords. Keywords are identified using their `keywordId`s.
 
-```Node
+```Javascript
 await client.updateNegativeKeywords(
   [
     {
@@ -716,7 +919,7 @@ await client.updateNegativeKeywords(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -733,11 +936,11 @@ await client.updateNegativeKeywords(
 #### archiveNegativeKeyword
 > Sets the negative keyword status to archived. This same operation can be performed via an update to the status, but is included for completeness.
 
-```Node
+```Javascript
 await client.archiveNegativeKeyword(61857817062026);
 ```
 >
-```
+```JSON
 {
   "code": "SUCCESS",
   "keywordId": 61857817062026
@@ -748,11 +951,11 @@ await client.archiveNegativeKeyword(61857817062026);
 #### listCampaignNegativeKeywords
 > Retrieves a list of negative campaign keywords satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listCampaignNegativeKeywords({"matchTypeFilter": "negativeExact"});
 ```
 >
-```
+```JSON
 [
   {
     "keywordId": 131747786239884,
@@ -777,11 +980,11 @@ await client.listCampaignNegativeKeywords({"matchTypeFilter": "negativeExact"});
 #### getCampaignNegativeKeyword
 > Retrieves a campaign negative keyword by Id. Note that this call returns the minimal set of keyword fields, but is more efficient than `getCampaignNegativeKeywordEx`.
 
-```Node
+```Javascript
 await client.getCampaignNegativeKeyword(197201372210821);
 ```
 >
-```
+```JSON
 {
   "keywordId": 197201372210821,
   "adGroupId": null,
@@ -796,7 +999,7 @@ await client.getCampaignNegativeKeyword(197201372210821);
 #### createCampaignNegativeKeywords
 > Creates one or more campaign negative keywords. Successfully created keywords will be assigned unique `keywordId`s.
 
-```Node
+```Javascript
 await client.createCampaignNegativeKeywords(
   [
     {
@@ -815,7 +1018,7 @@ await client.createCampaignNegativeKeywords(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -838,11 +1041,11 @@ await client.createCampaignNegativeKeywords(
 #### removeCampaignNegativeKeyword
 > Sets the campaign negative keyword status to deleted. This same operation can be performed via an update to the status, but is included for completeness.
 
-```Node
+```Javascript
 await client.removeCampaignNegativeKeyword(186203479904657);
 ```
 >
-```
+```JSON
 {
   "code": "SUCCESS",
   "keywordId": 186203479904657
@@ -853,11 +1056,11 @@ await client.removeCampaignNegativeKeyword(186203479904657);
 #### listProductAds
 > Retrieves a list of product ads satisfying optional criteria.
 
-```Node
+```Javascript
 await client.listProductAds({"stateFilter": "enabled"});
 ```
 >
-```
+```JSON
 [
   {
     "adId": 247309761200483,
@@ -873,11 +1076,11 @@ await client.listProductAds({"stateFilter": "enabled"});
 #### getProductAd
 > Retrieves a product ad by Id. Note that this call returns the minimal set of product ad fields, but is more efficient than `getProductAdEx`.
 
-```Node
+```Javascript
 await client.getProductAd(247309761200483);
 ```
 >
-```
+```JSON
 {
   "adId": 247309761200483,
   "adGroupId": 262960563101486,
@@ -891,7 +1094,7 @@ await client.getProductAd(247309761200483);
 #### createProductAds
 > Creates one or more product ads. Successfully created product ads will be assigned unique `adId`s.
 
-```Node
+```Javascript
 await client.createProductAds(
   [
     {
@@ -910,7 +1113,7 @@ await client.createProductAds(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -927,7 +1130,7 @@ await client.createProductAds(
 #### updateProductAds
 > Updates one or more product ads. Product ads are identified using their `adId`s.
 
-```Node
+```Javascript
 await client.updateProductAds(
   [
     {
@@ -942,7 +1145,7 @@ await client.updateProductAds(
 );
 ```
 >
-```
+```JSON
 [
   {
     "code": "SUCCESS",
@@ -959,11 +1162,11 @@ await client.updateProductAds(
 #### archiveProductAd
 > Sets the product ad status to archived. This same operation can be performed via an update, but is included for completeness.
 
-```Node
+```Javascript
 await client.archiveProductAd(239870616623537);
 ```
 >
-```
+```JSON
 {
   "code": "SUCCESS",
   "adId": 239870616623537
@@ -974,7 +1177,7 @@ await client.archiveProductAd(239870616623537);
 #### requestSnapshot
 > Request a snapshot report for all entities of a single type.
 
-```Node
+```Javascript
 await client.requestSnapshot(
   "campaigns",
   {
@@ -984,7 +1187,7 @@ await client.requestSnapshot(
 );
 ```
 >
-```
+```JSON
 {
   "snapshotId": "amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c87ef5df",
   "recordType": "campaign",
@@ -996,11 +1199,11 @@ await client.requestSnapshot(
 #### getSnapshot
 > Retrieve a previously requested report.
 
-```Node
+```Javascript
 await client.getSnapshot("amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c87ef5df");
 ```
 >
-```
+```JSON
 [
   {
     "campaignId": 181483024866689,
@@ -1033,10 +1236,31 @@ await client.getSnapshot("amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9
 ```
 
 ---
+#### requestSnapshotBrand
+> Request a snapshot report for all entities of a single type.  Used for Sponsored Brands.
+```Javascript
+await client.requestSnapshotBrand(
+  "campaigns",
+  {
+    "stateFilter": "enabled,paused,archived",
+    "campaignType": "sponsoredProducts"
+  }
+);
+```
+>
+```JSON
+{
+  "snapshotId": "amzn1.clicksAPI.v1.p1.573A0477.ec41773a-1659-4013-8eb9-fa18c87ef5df",
+  "recordType": "campaign",
+  "status": "IN_PROGRESS"
+}
+```
+
+---
 #### requestReport
 > Request a customized performance report for all entities of a single type which have performance data to report.
 
-```Node
+```Javascript
 await client.requestReport(
   "campaigns",
   {
@@ -1047,7 +1271,30 @@ await client.requestReport(
 );
 ```
 >
+```JSON
+{
+  "reportId": "amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4ae1d43",
+  "recordType": "campaign",
+  "status": "IN_PROGRESS",
+  "statusDetails": "Report is submitted"
+}
 ```
+
+---
+#### requestReportBrand
+> Request a customized performance report for all entities of a single type which have performance data to report.
+```Javascript
+await client.requestReportBrand(
+  "campaigns",
+  {
+    "reportDate": "20160515",
+    "campaignType": "sponsoredProducts",
+    "metrics": "impressions,clicks,cost"
+  }
+);
+```
+>
+```JSON
 {
   "reportId": "amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4ae1d43",
   "recordType": "campaign",
@@ -1060,11 +1307,11 @@ await client.requestReport(
 #### getReport
 > Retrieve a previously requested report.
 
-```Node
+```Javascript
 await client.getReport("amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-780dc4ae1d43");
 ```
 > Sandbox will return dummy data.
-```
+```JSON
 [
   {
     "cost": 647.75,
@@ -1097,11 +1344,11 @@ await client.getReport("amzn1.clicksAPI.v1.m1.573A0808.32908def-66a1-4ce2-8f12-7
 #### getAdGroupBidRecommendations
 > Request bid recommendations for specified ad group.
 
-```Node
+```Javascript
 await client.getAdGroupBidRecommendations(1234509876);
 ```
 >
-```
+```JSON
 {
   "adGroupId": 1234509876,
   "suggestedBid": {
@@ -1116,11 +1363,11 @@ await client.getAdGroupBidRecommendations(1234509876);
 #### getKeywordBidRecommendations
 > Request bid recommendations for specified keyword.
 
-```Node
+```Javascript
 await client.getKeywordBidRecommendations(85243141758914);
 ```
 >
-```
+```JSON
 {
   "keywordId": 85243141758914,
   "adGroupId": 252673310548066,
@@ -1136,7 +1383,7 @@ await client.getKeywordBidRecommendations(85243141758914);
 #### bulkGetKeywordBidRecommendations
 > Request bid recommendations for a list of up to 100 keywords.
 
-```Node
+```Javascript
 await client.bulkGetKeywordBidRecommendations(
   242783265349805,
   [
@@ -1152,7 +1399,7 @@ await client.bulkGetKeywordBidRecommendations(
 );
 ```
 >
-```
+```JSON
 {
   "adGroupId": 242783265349805,
   "recommendations": [
@@ -1184,7 +1431,7 @@ await client.bulkGetKeywordBidRecommendations(
 #### getAdGroupKeywordSuggestions
 > Request keyword suggestions for specified ad group.
 
-```Node
+```Javascript
 await client.getAdGroupKeywordSuggestions(
   {
     "adGroupId": 1234567890,
@@ -1194,7 +1441,7 @@ await client.getAdGroupKeywordSuggestions(
 );
 ```
 >
-```
+```JSON
 {
   "adGroupId": 1234567890,
   "suggestedKeywords": [
@@ -1214,7 +1461,7 @@ await client.getAdGroupKeywordSuggestions(
 #### getAdGroupKeywordSuggestionsEx
 > Request keyword suggestions for specified ad group, extended version. Adds the ability to return bid recommendation for returned keywords.
 
-```Node
+```Javascript
 await client.getAdGroupKeywordSuggestionsEx(
   {
     "adGroupId": 1234567890,
@@ -1225,7 +1472,7 @@ await client.getAdGroupKeywordSuggestionsEx(
 );
 ```
 >
-```
+```JSON
 [
   {
     "adGroupId": 1234567890,
@@ -1250,7 +1497,7 @@ await client.getAdGroupKeywordSuggestionsEx(
 #### getAsinKeywordSuggestions
 > Request keyword suggestions for specified asin.
 
-```Node
+```Javascript
 await client.getAsinKeywordSuggestions(
   {
     "asin": "B00IJSNPM0",
@@ -1259,7 +1506,7 @@ await client.getAsinKeywordSuggestions(
 );
 ```
 >
-```
+```JSON
 [
   {
     "keywordText": "keyword B00IJSNPM0 1",
@@ -1276,7 +1523,7 @@ await client.getAsinKeywordSuggestions(
 #### bulkGetAsinKeywordSuggestions
 > Request keyword suggestions for a list of asin.
 
-```Node
+```Javascript
 await client.bulkGetAsinKeywordSuggestions(
   {
     "asins": {
@@ -1288,7 +1535,7 @@ await client.bulkGetAsinKeywordSuggestions(
 );
 ```
 >
-```
+```JSON
 [
   {
     "keywordText": "keyword B00IJSNPM0 1",
