@@ -59,10 +59,10 @@ let refreshTokenObject = await client.refresh();
 ```
 >
 ```JSON
-[{
+{
   "access_token": "Atza|IQEBLjAsAhRmHjNgHpi0U-Dme37rR6CuUpSR…",
   "expires_in": 3600
-}]
+}
 ```
 #### Get a list of profiles
 ```Javascript
@@ -70,16 +70,19 @@ let profiles = await client.listProfiles();
 ```
 >
 ```JSON
-[{
-  "profileId":1234567890,
-  "countryCode":"US",
-  "currencyCode":"USD",
-  "dailyBudget":10.00,
-  "timezone":"America/Los_Angeles",
-  "accountInfo":{
-  "marketplaceStringId":"ABC123",
-  "sellerStringId":"DEF456"
-}]
+[
+  {
+    "profileId":1234567890,
+    "countryCode":"US",
+    "currencyCode":"USD",
+    "dailyBudget":10.00,
+    "timezone":"America/Los_Angeles",
+    "accountInfo":{
+      "marketplaceStringId":"ABC123",
+      "sellerStringId":"DEF456"
+    }
+  }
+]
 ```
 
 #### Set profile Id
