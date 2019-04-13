@@ -1,5 +1,5 @@
 {
-  "name": "amazon-advertising-api",
+  "name": "amz-advertising-api",
   "version": "1.0.0",
   "description": "This class helps you interfacing the Amazon Advertising API.",
   "main": "index.js",
