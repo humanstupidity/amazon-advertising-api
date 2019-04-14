@@ -37,7 +37,7 @@ client.registerProfile({"countryCode": "IT"});
 
 ```Javascript
 
-let AdvertisingClient = require('AdvertisingClient');
+let AdvertisingClient = require('amz-advertising-api');
 
 let config = {
     clientId: "CLIENT_ID",
@@ -155,10 +155,10 @@ client.options.profileId = "1234567890";
     * [getKeywordBidRecommendations](#getkeywordbidrecommendations)
     * [bulkGetKeywordBidRecommendations](#bulkgetkeywordbidrecommendations)
 * Keyword Suggestions
-  * [getAdGroupKeywordSuggestions](#getadgroupkeywordsuggestions)
-  * [getAdGroupKeywordSuggestionsEx](#getadgroupkeywordsuggestionsex)
-  * [getAsinKeywordSuggestions](#getasinkeywordsuggestions)
-  * [bulkGetAsinKeywordSuggestions](#bulkgetasinkeywordsuggestions)
+    * [getAdGroupKeywordSuggestions](#getadgroupkeywordsuggestions)
+    * [getAdGroupKeywordSuggestionsEx](#getadgroupkeywordsuggestionsex)
+    * [getAsinKeywordSuggestions](#getasinkeywordsuggestions)
+    * [bulkGetAsinKeywordSuggestions](#bulkgetasinkeywordsuggestions)
 
 #### getProfile
 > Retrieves a single profile by Id.
