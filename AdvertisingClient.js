@@ -360,13 +360,20 @@ module.exports = class AdvertisingClient {
             headers['Amazon-Advertising-API-Scope'] = this.options.profileId;
         }
 
-        let response = await requestPromise({
+        let requestOptions={
             url: url,
             headers: headers,
-            json: data,
             method: method,
             gzip: true,
-        })
+        }
+
+        if (method=="GET") {
+            requestOptions.qs=data;
+        }else{
+            requestOptions.json=data;
+        }
+
+        let response = await requestPromise(requestOptions)
 
         let resData = response.body;
 
