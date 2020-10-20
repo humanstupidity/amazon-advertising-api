@@ -1,6 +1,6 @@
 {
   "name": "amz-advertising-api",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "This class helps you interfacing the Amazon Advertising API.",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/humanstupidity/amazon-advertising-api#readme",
   "dependencies": {
-    "request": "^2.88.0"
+    "json-bigint": "^1.0.0",
+    "needle": "^2.5.2",
+    "set-interval-async": "^1.0.33",
+    "zlib": "^1.0.5"
   }
 }
