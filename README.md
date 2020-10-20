@@ -34,6 +34,7 @@ client.registerProfile({"countryCode": "IT"});
 ## Quick Start
 #### Instantiate the client
 > You can pass in `profileId` later. You can get all available profiles with `listProfiles`.
+> After you instantiate the client you have to call init().
 
 ```Javascript
 
@@ -50,13 +51,12 @@ let config = {
 }
 
 let client = new AdvertisingClient(config);
+
+await client.init();
 ```
 #### Refresh access token
-> You can refresh your access token when it expires by using the following method. The new access token will be in the request response. This method will set it for you so it's mainly for reference if you need it.
+> The refresh token gets automaticly refreshed every 2 minutes.
 
-```Javascript
-let refreshTokenObject = await client.refresh();
-```
 >
 ```JSON
 {
